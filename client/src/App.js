@@ -1,5 +1,10 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
 import BackColors from './components/BackColors';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
@@ -9,11 +14,13 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className='App'>
-          <Route exact path='/'>
-            <Redirect to='/white' />
-          </Route>
-          <Route path='/white' component={BackColors}></Route>
-          <Route path='/blue' component={BackColors}></Route>
+          <Switch>
+            <Route exact path='/'>
+              <Redirect to='/white' />
+            </Route>
+            <Route exact path='/white' component={BackColors}></Route>
+            <Route exact path='/blue' component={BackColors}></Route>
+          </Switch>
           <CreateCanvas />
         </div>
       </Router>

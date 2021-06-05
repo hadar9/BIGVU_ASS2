@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Spinner, Dropdown, Form, Col, Row, Button } from 'react-bootstrap';
+import {
+  Spinner,
+  DropdownButton,
+  Dropdown,
+  Form,
+  Col,
+  Row,
+  Button,
+} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { chooseImage } from '../actions/image';
@@ -11,6 +19,7 @@ function Options({ chooseImage }) {
   const { loading, images } = Data;
 
   const chooseImg = (e) => {
+    console.log(e);
     chooseImage(e);
   };
 
@@ -26,23 +35,18 @@ function Options({ chooseImage }) {
     <div className='options'>
       {loading ? (
         <>
-          <Dropdown>
-            <Dropdown.Toggle variant='primary' id='dropdown-basic'>
-              Pick an Image
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              {images.map((image) => (
-                <Dropdown.Item
-                  key={image['name']}
-                  eventKey={image['name']}
-                  onSelect={chooseImg}
-                >
-                  {image['name']}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+          <DropdownButton
+            alignRight
+            title='choose an image'
+            id='dropdown-menu-align-right'
+            onSelect={chooseImg}
+          >
+            {images.map((image) => (
+              <Dropdown.Item key={image['name']} eventKey={image['value']}>
+                {image['name']}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton>
           <Form>
             <Row className='textform align-items-center'>
               <Col xs='auto'>
