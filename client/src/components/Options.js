@@ -11,17 +11,22 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { chooseImage } from '../actions/image';
+import { chooseImage, changeText } from '../actions/image';
+import { debounce } from 'loadsh';
 
-function Options({ chooseImage }) {
+function Options({ chooseImage, changeText }) {
   const [Data, setData] = useState({ loading: false, images: [] });
+  const [Text, setText] = useState('');
 
   const { loading, images } = Data;
 
   const chooseImg = (e) => {
-    console.log(e);
     chooseImage(e);
   };
+  const changeTexts = debounce((text) => {
+    setText(text);
+    changeText(text);
+  }, 500);
 
   useEffect(() => {
     async function getData() {
@@ -36,9 +41,8 @@ function Options({ chooseImage }) {
       {loading ? (
         <>
           <DropdownButton
-            alignRight
+            style={{ textAlign: 'center', marginTop: '5%' }}
             title='choose an image'
-            id='dropdown-menu-align-right'
             onSelect={chooseImg}
           >
             {images.map((image) => (
@@ -48,20 +52,17 @@ function Options({ chooseImage }) {
             ))}
           </DropdownButton>
           <Form>
-            <Row className='textform align-items-center'>
-              <Col xs='auto'>
-                <Form.Control
-                  className='mb-2'
-                  id='inlineFormInput'
-                  placeholder='Enter text'
-                />
-              </Col>
-              <Col xs='auto'>
-                <Button type='submit' className='mb-2'>
-                  Submit
-                </Button>
-              </Col>
-            </Row>
+            <Form.Group className='text-center mt-5'>
+              <Form.Label style={{ color: 'white', fontSize: '18px' }}>
+                Add Text:
+              </Form.Label>
+              <Form.Control
+                className=' w-75 mx-auto'
+                id='inlineFormInput'
+                placeholder='Enter text'
+                onChange={(e) => changeTexts(e.target.value)}
+              />
+            </Form.Group>
           </Form>
         </>
       ) : (
@@ -73,6 +74,7 @@ function Options({ chooseImage }) {
 
 Options.propTypes = {
   chooseImage: PropTypes.func.isRequired,
+  changeText: PropTypes.func.isRequired,
 };
 
-export default connect(null, { chooseImage })(Options);
+export default connect(null, { chooseImage, changeText })(Options);

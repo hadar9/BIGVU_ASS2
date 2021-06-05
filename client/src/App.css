@@ -2,23 +2,28 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #bebcc1;
+  background-color: #c7bab1;
+}
+.cratecanvas {
+  height: 90vh;
 }
 
 .options {
   padding-top: 10px;
   float: left;
-  width: 30%;
+  width: 25%;
 }
-.textform {
-  padding-top: 10%;
-}
+
 .mycanvas {
   float: right;
 }
-
-p {
-  font-family: 'Inter', sans-serif;
-  color: aliceblue;
-  font-size: 60px;
+.footer {
+  margin-top: 3%;
+  height: 14vh;
+  padding-left: 28%;
+  font-size: xx-large;
+  font-family: 'Inter' sans-serif;
+  color: white;
+  background-color: #bebcc1;
+  border: 2px solid white;
 }

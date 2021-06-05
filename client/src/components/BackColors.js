@@ -23,10 +23,18 @@ function BackColors({ chooseColor }) {
           />{' '}
         </Navbar.Brand>
         <Nav className='mx-auto'>
-          <Nav.Link as={Link} to='/white' onClick={() => chooseColor('white')}>
+          <Nav.Link
+            className='mr-5'
+            to='/white'
+            onClick={(e) => chooseColor('white')}
+          >
             White
           </Nav.Link>
-          <Nav.Link as={Link} to='/blue' onClick={() => chooseColor('#6389df')}>
+          <Nav.Link
+            as={Link}
+            to='/blue'
+            onClick={(e) => chooseColor('#6389df')}
+          >
             Blue
           </Nav.Link>
         </Nav>
