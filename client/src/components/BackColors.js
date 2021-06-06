@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 function BackColors({ chooseColor }) {
   useEffect(() => {
     chooseColor('white');
-  }, []);
+  }, [chooseColor]);
   return (
     <>
       <Navbar className='color-nav' variant='dark'>

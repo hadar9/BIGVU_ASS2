@@ -81,7 +81,7 @@ function MyCanvas({ state: { color, imageurl, text } }) {
 
       fillText(ctx, words, x, 150, canvaTextWidth, fontSize);
     }
-  }, [text]);
+  }, [text, color]);
 
   return (
     <>
