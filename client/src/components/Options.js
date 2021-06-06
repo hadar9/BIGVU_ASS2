@@ -44,6 +44,7 @@ function Options({ chooseImage, changeText }) {
             style={{ textAlign: 'center', marginTop: '5%' }}
             title='choose an image'
             onSelect={chooseImg}
+            variant='light'
           >
             {images.map((image) => (
               <Dropdown.Item key={image['name']} eventKey={image['value']}>
@@ -53,11 +54,12 @@ function Options({ chooseImage, changeText }) {
           </DropdownButton>
           <Form>
             <Form.Group className='text-center mt-5'>
-              <Form.Label style={{ color: 'white', fontSize: '18px' }}>
+              <Form.Label style={{ color: 'black', fontSize: '18px' }}>
                 Add Text:
               </Form.Label>
               <Form.Control
-                className=' w-75 mx-auto'
+                className='btn w-75 mx-auto'
+                variant='light'
                 id='inlineFormInput'
                 placeholder='Enter text'
                 onChange={(e) => changeTexts(e.target.value)}
@@ -66,7 +68,7 @@ function Options({ chooseImage, changeText }) {
           </Form>
         </>
       ) : (
-        <Spinner animation='border' variant='info' />
+        <Spinner className='spinner' animation='border' />
       )}
     </div>
   );

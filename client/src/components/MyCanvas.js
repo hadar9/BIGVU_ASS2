@@ -6,6 +6,28 @@ function MyCanvas({ state: { color, imageurl, text } }) {
   const canvasRef = useRef(null);
   const ImagRef = useRef(null);
 
+  const fillText = (ctx, words, x, y, canvaTextWidth, fontsize) => {
+    let line = '';
+    let word;
+    let metrics;
+
+    for (let i = 0; i < words.length; i++) {
+      word = line + words[i] + ' ';
+      metrics = ctx.measureText(word);
+
+      if (metrics.width > canvaTextWidth && i > 0) {
+        ctx.fillText(line, x, y);
+        line = words[i] + ' ';
+        y += fontsize;
+      } else {
+        line = word;
+      }
+    }
+    ctx.fillText(line, x, y);
+
+    return y;
+  };
+
   useEffect(() => {
     let canva = canvasRef.current;
     const ctx = canva.getContext('2d');
@@ -21,31 +43,43 @@ function MyCanvas({ state: { color, imageurl, text } }) {
   useEffect(() => {
     let canva = canvasRef.current;
     const ctx = canva.getContext('2d');
-    ctx.clearRect(
-      canva.width * (2 / 3),
-      0,
-      canva.width - canva.width * (2 / 3),
-      canva.height
-    );
-    let fontSize = 60;
-    ctx.fillStyle = '#1f2b6c';
-    ctx.textAlign = 'justify ';
+
+    let canvaTextWidth = canva.width - canva.width * (2 / 3);
+    let x = canva.width * (2 / 3);
+    let y = 150;
+    let fontSize = 50;
+
+    ctx.clearRect(x, 0, canvaTextWidth, canva.height);
+
     if (text) {
-      let width = ctx.measureText(text).width;
-      /*
-      while (width > fontSize) {
-        fontSize -= 2;
-        width = ctx.measureText(text).width;
-        console.log(width);
-      }*/
+      let words = text.split(' ');
+
+      //check for the right font size
+      if (color === 'white') {
+        ctx.fillStyle = 'white';
+      } else {
+        ctx.fillStyle = '#6389df';
+      }
+
+      do {
+        fontSize -= 4;
+        ctx.font = `${fontSize}px Inter sans-serif`;
+
+        y = 150;
+        ctx.clearRect(x, 0, canvaTextWidth, canva.height);
+        y = fillText(ctx, words, x, y, canvaTextWidth, fontSize);
+      } while (y > 200);
+
+      ctx.clearRect(x, 0, canvaTextWidth, canva.height);
+
+      if (color === 'white') {
+        ctx.fillStyle = '#605399';
+      } else {
+        ctx.fillStyle = 'white';
+      }
       ctx.font = `${fontSize}px Inter sans-serif`;
-      ctx.fillText(
-        text,
-        canva.width * (2 / 3),
-        100,
-        canva.width - canva.width * (2 / 3),
-        canva.height
-      );
+
+      fillText(ctx, words, x, 150, canvaTextWidth, fontSize);
     }
   }, [text]);
 
@@ -54,6 +88,7 @@ function MyCanvas({ state: { color, imageurl, text } }) {
       <Image ref={ImagRef} src={String(imageurl)} hidden />
 
       <canvas
+        className='mycanvas'
         ref={canvasRef}
         style={{ backgroundColor: color }}
         width={640}

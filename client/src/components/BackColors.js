@@ -12,7 +12,7 @@ function BackColors({ chooseColor }) {
   }, []);
   return (
     <>
-      <Navbar bg='primary' variant='dark'>
+      <Navbar className='color-nav' variant='dark'>
         <Navbar.Brand>
           <img
             alt=''
@@ -24,6 +24,7 @@ function BackColors({ chooseColor }) {
         </Navbar.Brand>
         <Nav className='mx-auto'>
           <Nav.Link
+            as={Link}
             className='mr-5'
             to='/white'
             onClick={(e) => chooseColor('white')}
