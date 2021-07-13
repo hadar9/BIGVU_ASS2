@@ -85,7 +85,7 @@ function MyCanvas({ state: { color, imageurl, text } }) {
 
   return (
     <>
-      <Image ref={ImagRef} src={String(imageurl)} hidden />
+      {imageurl ? <Image ref={ImagRef} src={String(imageurl)} hidden /> : null}
 
       <canvas
         className='mycanvas'
