@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import img from '../img/BIGVU-LOGO.jpg';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { chooseColor } from '../actions/image';
