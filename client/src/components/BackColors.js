@@ -13,15 +13,6 @@ function BackColors({ chooseColor }) {
   return (
     <>
       <Navbar className='color-nav' variant='dark'>
-        <Navbar.Brand>
-          <img
-            alt=''
-            src={img}
-            width='100'
-            height='30'
-            className='d-inline-block align-top'
-          />{' '}
-        </Navbar.Brand>
         <Nav className='mx-auto'>
           <Nav.Link
             as={Link}
