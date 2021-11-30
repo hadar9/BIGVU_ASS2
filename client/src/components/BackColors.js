@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { chooseColor } from '../actions/image';
+import { useDispatch } from 'react-redux';
+import { imageSliceActions } from '../reducers/imageReducer';
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function BackColors({ chooseColor }) {
+export default function BackColors() {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    chooseColor('white');
-  }, [chooseColor]);
+    dispatch(imageSliceActions.chooseColor('white'));
+  }, [dispatch]);
   return (
     <>
       <Navbar className='color-nav' variant='dark'>
@@ -17,14 +18,14 @@ function BackColors({ chooseColor }) {
             as={Link}
             className='mr-5'
             to='/white'
-            onClick={(e) => chooseColor('white')}
+            onClick={(e) => dispatch(imageSliceActions.chooseColor('white'))}
           >
             White
           </Nav.Link>
           <Nav.Link
             as={Link}
             to='/blue'
-            onClick={(e) => chooseColor('#6389df')}
+            onClick={(e) => dispatch(imageSliceActions.chooseColor('#6389df'))}
           >
             Blue
           </Nav.Link>
@@ -33,9 +34,3 @@ function BackColors({ chooseColor }) {
     </>
   );
 }
-
-BackColors.propTypes = {
-  chooseColor: PropTypes.func.isRequired,
-};
-
-export default connect(null, { chooseColor })(BackColors);

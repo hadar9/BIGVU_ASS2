@@ -1,20 +1,24 @@
-const CHOOSE_IMAGE = 'CHOOSE_IMAGE';
-const CHOOSE_COLOR = 'CHOOSE_COLOR';
-const CHANGE_TEXT = 'CHANGE_TEXT';
-
+import { createSlice } from '@reduxjs/toolkit';
 const initialState = { color: 'white', imageurl: null, text: null };
 
-export default function imageReducer(state = initialState, action) {
-  const { type, payload } = action;
+const imageSlice = createSlice({
+  name: 'image',
+  initialState,
+  reducers: {
+    chooseColor(state, action) {
+      state.color = action.payload;
+      state.imageurl = null;
+      state.text = null;
+    },
+    chooseImage(state, action) {
+      state.imageurl = action.payload;
+    },
+    changeText(state, action) {
+      state.text = action.payload;
+    },
+  },
+});
 
-  switch (type) {
-    case CHOOSE_COLOR:
-      return { color: payload, imageurl: null, text: null };
-    case CHOOSE_IMAGE:
-      return { ...state, imageurl: payload };
-    case CHANGE_TEXT:
-      return { ...state, text: payload };
-    default:
-      return state;
-  }
-}
+export const imageSliceActions = imageSlice.actions;
+
+export default imageSlice.reducer;

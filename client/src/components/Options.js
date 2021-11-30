@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Spinner, DropdownButton, Dropdown, Form } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { chooseImage, changeText } from '../actions/image';
+import { useDispatch } from 'react-redux';
+import { imageSliceActions } from '../reducers/imageReducer';
 import { debounce } from 'loadsh';
 
-function Options({ chooseImage, changeText }) {
+export default function Options() {
   const [Data, setData] = useState({ loading: false, images: [] });
-
   const { loading, images } = Data;
 
+  const dispatch = useDispatch();
+
   const chooseImg = (e) => {
-    chooseImage(e);
+    dispatch(imageSliceActions.chooseImage(e));
   };
   const changeTexts = debounce((text) => {
-    changeText(text);
+    dispatch(imageSliceActions.changeText(text));
   }, 500);
 
   useEffect(async () => {
@@ -60,10 +60,3 @@ function Options({ chooseImage, changeText }) {
     </div>
   );
 }
-
-Options.propTypes = {
-  chooseImage: PropTypes.func.isRequired,
-  changeText: PropTypes.func.isRequired,
-};
-
-export default connect(null, { chooseImage, changeText })(Options);

@@ -1,16 +1,6 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
 import imageReducer from '../reducers/imageReducer';
 
-const initalState = {};
-
-const middleware = [thunk];
-
-const store = createStore(
-  imageReducer,
-  initalState,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
+const store = configureStore({ reducer: { image: imageReducer } });
 
 export default store;

@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Image } from 'react-bootstrap';
-function MyCanvas({ state: { color, imageurl, text } }) {
+
+export default function MyCanvas() {
   const canvasRef = useRef(null);
   const ImagRef = useRef(null);
+
+  const color = useSelector((state) => state.image.color);
+  const imageurl = useSelector((state) => state.image.imageurl);
+  const text = useSelector((state) => state.image.text);
 
   const fillText = (ctx, words, x, y, canvaTextWidth, fontsize) => {
     let line = '';
@@ -68,6 +72,7 @@ function MyCanvas({ state: { color, imageurl, text } }) {
         y = 150;
         ctx.clearRect(x, 0, canvaTextWidth, canva.height);
         y = fillText(ctx, words, x, y, canvaTextWidth, fontSize);
+        console.log(y);
       } while (y > 200);
 
       ctx.clearRect(x, 0, canvaTextWidth, canva.height);
@@ -99,12 +104,3 @@ function MyCanvas({ state: { color, imageurl, text } }) {
     </>
   );
 }
-MyCanvas.propTypes = {
-  state: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  state: state,
-});
-
-export default connect(mapStateToProps, {})(MyCanvas);
